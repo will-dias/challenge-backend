@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     AWS_SECRET_ACCESS_KEY: str
     AWS_REGION: str
     SNS_TOPIC_CATALOG_ARN: str
+    S3_BUCKET_NAME: str
 
 
 settings = Settings()

@@ -15,20 +15,21 @@ dependencies = [
     "testcontainers (>=4.10.0,<5.0.0)",
     "async-asgi-testclient (>=1.4.11,<2.0.0)",
 ]
-packages = [{include = "src"}]
 
 
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
 
-[tool.poetry.group.dev.dependencies]
-pytest = "^8.3.5"
-pytest-cov = "^6.0.0"
-taskipy = "^1.14.1"
-ruff = "^0.11.2"
-pytest-env = "^1.1.5"
-pytest-asyncio = "^0.26.0"
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+    "pytest-cov>=6.0.0",
+    "pytest-env>=1.1.5",
+    "pytest-asyncio>=0.26.0",
+    "taskipy>=1.14.1",
+    "ruff>=0.11.2",
+]
 
 [tool.ruff.lint]
 preview = true
@@ -51,8 +52,16 @@ post_test = 'coverage html'
 env = [
     "DATABASE_URL=mongodb://localhost:27017",
     "DATABASE_NAME=test_db",
+    "AWS_ACCESS_KEY_ID=abc",
+    "AWS_SECRET_ACCESS_KEY=abc",
+    "AWS_REGION=region",
+    "SNS_TOPIC_CATALOG_ARN=test",
+    "S3_BUCKET_NAME=s3"
 ]
 asyncio_mode = "auto"
 
-[tool.poetry]
-packages = [{include = "src"}]
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
